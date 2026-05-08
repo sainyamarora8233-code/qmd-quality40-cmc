@@ -189,6 +189,7 @@ nav{
   touch-action:none;
 }
 .slider-thumb:active{cursor:grabbing;transform:translate(-50%,-50%) scale(1.15)}
+.slider-thumb::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px}
 
 /* Stage labels row */
 .stage-labels{
@@ -473,4 +474,220 @@ footer strong{color:rgba(255,255,255,0.5)}
           <h3>Quality 4.0</h3>
           <p class="scard-desc">AI vision inspection, predictive FMEA, digital APQP, real-time process monitoring. You're deploying these tools — and the QMS framework hasn't caught up yet.</p>
           <div class="scard-tools-label">Common Tools &amp; Standards</div>
-          <div class="scard-tags"><span class="stag">AI Vision</span><span class="stag">Predi
+          <div class="scard-tags"><span class="stag">AI Vision</span><span class="stag">Predictive FMEA</span><span class="stag">Digital APQP</span><span class="stag">ISO 42001</span><span class="stag">IoT</span></div>
+          <div class="scard-cmc"><strong>CMC offers you:</strong> Phase 3 builds peer cohorts at your stage — real roadmaps, lessons learned, no vendor pitches.</div>
+        </div>
+      </div>
+      <div class="scard" id="card-3">
+        <div class="scard-icon" style="background:rgba(26,122,82,0.18)">🔮</div>
+        <div class="scard-body">
+          <div class="scard-sub" style="color:#4ecb9e">Stage 4 of 4</div>
+          <h3>Quality 5.0</h3>
+          <p class="scard-desc">Human-AI collaboration, autonomous quality systems, resilience engineering. You're shaping what the next generation of quality management looks like.</p>
+          <div class="scard-tools-label">Common Tools &amp; Standards</div>
+          <div class="scard-tags"><span class="stag">Autonomous QMS</span><span class="stag">AI Ethics</span><span class="stag">ISO 42001</span><span class="stag">Resilience Eng.</span></div>
+          <div class="scard-cmc"><strong>CMC offers you:</strong> Phase 4 is yours — the Playbook, QP articles, WCQI presentations. Your experience makes the community credible.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKEPTIC -->
+<div class="skeptic-section">
+  <div class="skeptic-inner">
+    <div class="skeptic-icon">🤨</div>
+    <div class="skeptic-body">
+      <h3>"We've seen this before. Another hype cycle."</h3>
+      <p>The fatigue is earned. But <strong>AI is not a methodology — it's infrastructure.</strong> It's already embedded in the ERP systems, inspection cameras, and supplier networks quality professionals manage every day. The question isn't whether to adopt it. It's whether quality practitioners lead that adoption or get bypassed by it.</p>
+      <p>The CMC Initiative isn't here to sell you on AI. It's here to make sure <strong>quality professionals — not vendors — define how it integrates with ISO-based QMS.</strong> Skeptics are exactly who should be in the room.</p>
+    </div>
+  </div>
+</div>
+
+<!-- INTEREST -->
+<section class="interest-section" id="interest">
+  <p class="section-eyebrow" style="color:var(--gold)">Your Move</p>
+  <h2 class="interest-q">Where do you <span>stand</span>?</h2>
+  <p class="interest-sub">No commitment. No certifications. Just tell us how you're feeling.</p>
+  <div class="interest-cards">
+    <div class="icard icard-yes" onclick="showResp('yes')"><div class="icard-icon">✅</div><div class="icard-label">I'm In</div><div class="icard-desc">Count me in. Let's build this together.</div></div>
+    <div class="icard icard-maybe" onclick="showResp('maybe')"><div class="icard-icon">🤔</div><div class="icard-label">Maybe</div><div class="icard-desc">Tell me more before I commit.</div></div>
+    <div class="icard icard-whelm" onclick="showResp('whelm')"><div class="icard-icon">😅</div><div class="icard-label">Overwhelming</div><div class="icard-desc">Honestly? Same. That's why we built this.</div></div>
+    <div class="icard icard-skeptic" onclick="showResp('skeptic')"><div class="icard-icon">🤨</div><div class="icard-label">I'm Skeptical</div><div class="icard-desc">I've seen hype cycles. Convince me.</div></div>
+  </div>
+  <div class="resp-wrap">
+    <div class="resp-panel" id="resp-yes"><h4>That's all we needed to hear.</h4><p>Add your email below — you'll get the Phase 1 calendar, the CMC interest meeting invite, and the Quality 4.0 glossary first. Volunteer roles are open if you want to help build rather than just participate.</p></div>
+    <div class="resp-panel" id="resp-maybe"><h4>A perfectly reasonable starting point.</h4><p>Phase 1 is pure awareness — one panel discussion, a shared glossary, an interest meeting. No prep, no tools. Come once. If it resonates, stay. Add your email for the schedule when it's set.</p></div>
+    <div class="resp-panel" id="resp-whelm"><h4>We built this exactly for that feeling.</h4><p>Phase 1 starts with decoding the terminology — grounded in ISO 9001, not machine learning papers. Add your email for the Phase 1 invite. One step at a time.</p></div>
+    <div class="resp-panel" id="resp-skeptic"><h4>Good. We need skeptics in the room.</h4><p>No vendors. No sponsors. No certification to sell. Run by QMD volunteer practitioners who are tired of Q4.0 content that serves someone else's agenda. Come to one panel. Push back. If it's hype, you'll know in 90 minutes. Add your email — we'll put you on the list.</p></div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section class="join-section" id="join">
+  <div class="join-inner">
+    <div class="section-eyebrow" style="text-align:center">Stay Connected</div>
+    <h2>Get on the <span>CMC Interest List</span></h2>
+    <p>Phase 1 schedule, ISO 42001 primer, and Quality 4.0 Glossary — as soon as they're ready. No spam. Unsubscribe anytime.</p>
+    <div class="join-form">
+      <input type="email" id="emailInput" placeholder="Your email address" autocomplete="email" inputmode="email"/>
+      <button onclick="handleJoin()">Join the List</button>
+    </div>
+    <div class="join-confirm" id="joinConfirm"><strong>You're on the list.</strong> We'll be in touch with Phase 1 resources. See you in the community.</div>
+    <div class="join-steps">
+      <div class="join-step"><div class="join-step-num">1</div><h5>Add Your Email</h5><p>5 seconds. No account needed.</p></div>
+      <div class="join-step"><div class="join-step-num">2</div><h5>Get the Glossary</h5><p>Q4.0 terms mapped to ISO clauses.</p></div>
+      <div class="join-step"><div class="join-step-num">3</div><h5>Attend One Panel</h5><p>No prior AI knowledge required.</p></div>
+      <div class="join-step"><div class="join-step-num">4</div><h5>Decide to Stay</h5><p>On your terms. No pressure.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASES -->
+<section class="phases-section" id="phases">
+  <div class="phases-inner">
+    <div class="section-eyebrow">The Plan</div>
+    <h2 class="section-h">One year. Four phases. No fluff.</h2>
+    <p class="section-p" style="color:rgba(255,255,255,0.38)">Community-driven from shared vocabulary to published playbooks.</p>
+    <div class="phases-grid">
+      <div class="ph-card"><div class="ph-head" style="background:#1A6985"><div class="ph-num">1</div><h4>Awareness &amp; Community</h4><span>Months 1–3</span></div><div class="ph-body"><ul><li>Moderated panel discussion</li><li>Quality 4.0 shared glossary</li><li>ISO 42001 primer</li><li>CMC interest meeting</li></ul></div></div>
+      <div class="ph-card"><div class="ph-head" style="background:#0B6E7E"><div class="ph-num">2</div><h4>Translation &amp; Framework</h4><span>Months 4–6</span></div><div class="ph-body"><ul><li>Interactive workshops</li><li>ISO 9001 ↔ Q4.0 mapping</li><li>AI-assisted analysis demos</li><li>Draft QP article submission</li></ul></div></div>
+      <div class="ph-card"><div class="ph-head" style="background:#1A7A52"><div class="ph-num">3</div><h4>Capability Enablement</h4><span>Months 7–9</span></div><div class="ph-body"><ul><li>Small-group peer cohorts</li><li>30/60/90-day roadmaps</li><li>Peer learning labs</li><li>Real implementation examples</li></ul></div></div>
+      <div class="ph-card"><div class="ph-head" style="background:#8B4513"><div class="ph-num">4</div><h4>Knowledge Sharing</h4><span>Months 10–12</span></div><div class="ph-body"><ul><li>Quality 4.0 Playbook</li><li>Thought leadership articles</li><li>WCQI 2027 presentations</li><li>ASQ Quality Progress features</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>QMD Quality 4.0 CMC Initiative</strong> · ASQ World Conference on Quality and Improvement 2026</p>
+  <p>Not a certification or training body · Vendor-neutral · Practitioner-led · ASQ Quality Management Division</p>
+</footer>
+
+<script>
+// ── TOUCH-NATIVE SLIDER ──────────────────────────────────────────
+const sliderTrack = document.getElementById('sliderTrack');
+const fill        = document.getElementById('sliderFill');
+const thumb       = document.getElementById('sliderThumb');
+const STAGES = 4;
+let currentStage = 0;
+let dragging = false;
+
+function pctFromEvent(e) {
+  const rect = sliderTrack.getBoundingClientRect();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  return Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+}
+
+function stageFromPct(pct) {
+  return Math.round(pct * (STAGES - 1));
+}
+
+function setStage(s, animate) {
+  const newStage = Math.max(0, Math.min(STAGES - 1, s));
+  const stageChanged = newStage !== currentStage;
+  currentStage = newStage;
+  const pct = currentStage / (STAGES - 1) * 100;
+
+  if (!animate) {
+    fill.style.transition  = 'none';
+    thumb.style.transition = 'none';
+  } else {
+    fill.style.transition  = 'width .25s ease';
+    thumb.style.transition = 'left .25s ease';
+  }
+  fill.style.width  = pct + '%';
+  thumb.style.left  = `clamp(14px, ${pct}%, calc(100% - 14px))`;
+
+  document.querySelectorAll('.stage-lbl').forEach((el, i) => {
+    el.classList.toggle('active', i === currentStage);
+  });
+  document.querySelectorAll('.scard').forEach((el, i) => {
+    el.classList.toggle('active', i === currentStage);
+  });
+  if (stageChanged) track('slider_' + currentStage);
+}
+
+// Mouse events
+thumb.addEventListener('mousedown', e => { dragging = true; e.preventDefault(); });
+document.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  const s = stageFromPct(pctFromEvent(e));
+  if (s !== currentStage) setStage(s, false);
+});
+document.addEventListener('mouseup', () => { dragging = false; });
+
+// Touch events
+thumb.addEventListener('touchstart', e => { dragging = true; e.preventDefault(); }, { passive: false });
+sliderTrack.addEventListener('touchstart', e => {
+  const s = stageFromPct(pctFromEvent(e));
+  setStage(s, true);
+  dragging = true;
+  e.preventDefault();
+}, { passive: false });
+document.addEventListener('touchmove', e => {
+  if (!dragging) return;
+  setStage(stageFromPct(pctFromEvent(e)), false);
+  e.preventDefault();
+}, { passive: false });
+document.addEventListener('touchend', () => { dragging = false; });
+
+// Click on track
+sliderTrack.addEventListener('click', e => {
+  setStage(stageFromPct(pctFromEvent(e)), true);
+});
+
+// Init
+setStage(0, false);
+
+// ── INTEREST BUTTONS ────────────────────────────────────────────
+function showResp(type) {
+  document.querySelectorAll('.resp-panel').forEach(p => p.classList.remove('show'));
+  const p = document.getElementById('resp-' + type);
+  if (p) {
+    p.classList.add('show');
+    setTimeout(() => p.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+  if (type === 'yes' || type === 'skeptic') {
+    setTimeout(() => document.getElementById('join').scrollIntoView({ behavior: 'smooth' }), 1600);
+  }
+  track('interest_' + type);
+}
+
+// ── EMAIL JOIN ──────────────────────────────────────────────────
+function handleJoin() {
+  const input = document.getElementById('emailInput');
+  const email = input.value.trim();
+  if (!email || !email.includes('@')) {
+    input.style.borderColor = '#e74c3c';
+    input.focus();
+    return;
+  }
+  input.style.borderColor = 'var(--teal)';
+  try {
+    const d = JSON.parse(localStorage.getItem('qmd_cmc') || '{}');
+    d.emails = d.emails || [];
+    if (!d.emails.includes(email)) d.emails.push(email);
+    localStorage.setItem('qmd_cmc', JSON.stringify(d));
+  } catch(e) {}
+  document.getElementById('joinConfirm').style.display = 'block';
+  input.disabled = true;
+  document.querySelector('.join-form button').disabled = true;
+  track('email_signup');
+}
+document.getElementById('emailInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') handleJoin();
+});
+
+// ── ANALYTICS ───────────────────────────────────────────────────
+function track(name) {
+  try {
+    const d = JSON.parse(localStorage.getItem('qmd_cmc') || '{}');
+    d[name] = (d[name] || 0) + 1;
+    d._last = new Date().toISOString();
+    localStorage.setItem('qmd_cmc', JSON.stringify(d));
+  } catch(e) {}
+}
+</script>
+</body>
+</html>
