@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <meta name="theme-color" content="#0D2B45"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/>
 <title>Quality 4.0 CMC — QMD | ASQ</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -70,17 +72,25 @@ header{
 /* ── SLIDER ── */
 .slider-section{flex-shrink:0;padding:14px 0 0}
 .sl-track-wrap{
-  position:relative;height:6px;
-  background:rgba(255,255,255,0.1);border-radius:3px;
+  position:relative;
+  height:44px; /* large tap target — thumb is 24px, gives 10px above+below */
   margin:0 12px;cursor:pointer;
   touch-action:none;user-select:none;-webkit-user-select:none;
-  /* Expand tap area vertically so it's easy to hit on mobile */
-  padding:14px 0;margin-top:-14px;margin-bottom:-14px;
+  display:flex;align-items:center;
+}
+/* Visual bar via pseudo-element — keeps fill/thumb math clean */
+.sl-track-wrap::before{
+  content:'';position:absolute;left:0;right:0;
+  height:6px;border-radius:3px;
+  background:rgba(255,255,255,0.1);
+  pointer-events:none;
 }
 .sl-fill{
-  position:absolute;left:0;top:0;bottom:0;
+  position:absolute;left:0;
+  height:6px;top:50%;transform:translateY(-50%);
   background:linear-gradient(90deg,var(--teal),var(--gold));
   border-radius:3px;width:0%;
+  pointer-events:none; /* KEY: all touches go to track, not fill */
   transition:width .28s cubic-bezier(.4,0,.2,1);
 }
 .sl-thumb{
@@ -89,8 +99,8 @@ header{
   background:var(--gold);border:3px solid var(--dark);
   box-shadow:0 0 0 3px rgba(232,161,23,0.28);
   transform:translate(-50%,-50%);left:0%;
+  pointer-events:none; /* KEY: all touches go to track, not thumb */
   transition:left .28s cubic-bezier(.4,0,.2,1);
-  cursor:pointer;touch-action:none;
 }
 .sl-labels{display:flex;justify-content:space-between;margin-top:10px}
 .sl-lbl{
@@ -382,12 +392,9 @@ async function handleJoin() {
     url.searchParams.set('stage', STAGE_LABELS[current]);
     await fetch(url.toString(), { mode: 'no-cors' });
 
-    // Show success inline — keep row visible so page doesn't jump
-    input.style.display = 'none';
-    btn.style.display   = 'none';
-    status.innerHTML = '✅ <strong>You\'re on the list.</strong> We\'ll be in touch soon.';
-    status.className = 'email-status success';
-    status.style.display = 'block';
+    // Replace row with success message
+    document.getElementById('emailRow').innerHTML =
+      '<p style="font-size:13px;color:rgba(78,203,158,0.9);text-align:center;padding:4px 0">✅ <strong>You\'re on the list.</strong> We\'ll be in touch soon.</p>';
 
   } catch (err) {
     btn.disabled = false;
@@ -399,4 +406,16 @@ async function handleJoin() {
   }
 }
 
-document.getElementById('emailInput').addEventListener('keydown', e
+document.getElementById('emailInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') handleJoin();
+});
+
+// Scroll email section into view when keyboard opens on mobile
+document.getElementById('emailInput').addEventListener('focus', () => {
+  setTimeout(() => {
+    document.querySelector('.email-section').scrollIntoView({ block: 'nearest' });
+  }, 350);
+});
+</script>
+</body>
+</html>
