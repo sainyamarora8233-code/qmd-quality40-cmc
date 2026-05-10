@@ -376,30 +376,28 @@ async function handleJoin() {
   status.style.display = 'none';
 
   try {
-    const res = await fetch(GOOGLE_SCRIPT_URL, {
+    // no-cors + text/plain bypasses CORS preflight — works with Google Apps Script
+    await fetch(GOOGLE_SCRIPT_URL, {
       method:  'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        email:    email,
-        stage:    STAGE_LABELS[current],
-        _subject: 'New CMC Initiative signup — ' + STAGE_LABELS[current]
-      })
+      mode:    'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body:    JSON.stringify({ email, stage: STAGE_LABELS[current] })
     });
 
-    if (res.ok) {
-      // Success
-      document.getElementById('emailRow').style.display = 'none';
-      status.innerHTML = '<strong>You\'re on the list.</strong> We\'ll be in touch with details soon.';
-      status.className = 'email-status success';
-      status.style.display = 'block';
-    } else {
-      const data = await res.json().catch(() => ({}));
-      throw new Error(data.error || 'Submission failed');
-    }
+    // With no-cors the response is opaque — assume success and show confirmation
+    document.getElementById('emailRow').style.display = 'none';
+    status.innerHTML = '<strong>You\'re on the list.</strong> We\'ll be in touch with details soon.';
+    status.className = 'email-status success';
+    status.style.display = 'block';
 
   } catch (err) {
-    // Error — restore button so they can retry
     btn.disabled = false;
     btn.textContent = 'Join';
     status.innerHTML = 'Something went wrong — please try again.';
-    status.cla
+    status.className = 'email-status error';
+    status.style.display = 'block';
+    setTimeout(() => { status.style.display = 'none'; }, 4000);
+  }
+}
+
+document.getElementById('emailInput').addEventL
