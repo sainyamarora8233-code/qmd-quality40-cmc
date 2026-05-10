@@ -376,17 +376,16 @@ async function handleJoin() {
   status.style.display = 'none';
 
   try {
-    // no-cors + text/plain bypasses CORS preflight — works with Google Apps Script
-    await fetch(GOOGLE_SCRIPT_URL, {
-      method:  'POST',
-      mode:    'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body:    JSON.stringify({ email, stage: STAGE_LABELS[current] })
-    });
+    // GET with URL params — most reliable pattern for Google Apps Script (no redirect/CORS issues)
+    const url = new URL(GOOGLE_SCRIPT_URL);
+    url.searchParams.set('email', email);
+    url.searchParams.set('stage', STAGE_LABELS[current]);
+    await fetch(url.toString(), { mode: 'no-cors' });
 
-    // With no-cors the response is opaque — assume success and show confirmation
-    document.getElementById('emailRow').style.display = 'none';
-    status.innerHTML = '<strong>You\'re on the list.</strong> We\'ll be in touch with details soon.';
+    // Show success inline — keep row visible so page doesn't jump
+    input.style.display = 'none';
+    btn.style.display   = 'none';
+    status.innerHTML = '✅ <strong>You\'re on the list.</strong> We\'ll be in touch soon.';
     status.className = 'email-status success';
     status.style.display = 'block';
 
@@ -400,4 +399,4 @@ async function handleJoin() {
   }
 }
 
-document.getElementById('emailInput').addEventL
+document.getElementById('emailInput').addEventListener('keydown', e
