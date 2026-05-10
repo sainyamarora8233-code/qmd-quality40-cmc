@@ -72,7 +72,10 @@ header{
 .sl-track-wrap{
   position:relative;height:6px;
   background:rgba(255,255,255,0.1);border-radius:3px;
-  margin:0 12px;cursor:pointer;touch-action:none;
+  margin:0 12px;cursor:pointer;
+  touch-action:none;user-select:none;-webkit-user-select:none;
+  /* Expand tap area vertically so it's easy to hit on mobile */
+  padding:14px 0;margin-top:-14px;margin-bottom:-14px;
 }
 .sl-fill{
   position:absolute;left:0;top:0;bottom:0;
@@ -294,11 +297,10 @@ footer{
 </div>
 
 <script>
-// ── CONFIG — paste your Formspree endpoint here ──────────────────
-// 1. Go to formspree.io and sign up (free)
-// 2. Create a new form → copy the endpoint URL
-// 3. Replace the placeholder below with your URL
-const FORMSPREE_URL = 'https://formspree.io/f/xnjwovpa';
+// ── CONFIG — paste your Google Apps Script URL here ───────────────
+// See email_collector_script.js in your Quality 4.0 CMC folder for setup steps
+// Once deployed, paste the Web App URL below (replaces REPLACE_WITH_SCRIPT_URL)
+const GOOGLE_SCRIPT_URL = 'REPLACE_WITH_SCRIPT_URL';
 
 // Stage labels for the submission payload
 const STAGE_LABELS = ['Unaware', 'Enthusiast', 'Practitioner', 'Expert'];
@@ -309,14 +311,11 @@ const sliderFill  = document.getElementById('sliderFill');
 const sliderThumb = document.getElementById('sliderThumb');
 const STAGES = 4;
 let current = 0;
-let dragging = false;
 
 function goStage(idx, smooth) {
   idx = Math.max(0, Math.min(STAGES - 1, Math.round(idx)));
   current = idx;
-
   const p = (idx / (STAGES - 1) * 100) + '%';
-
   if (smooth === false) {
     sliderFill.style.transition  = 'none';
     sliderThumb.style.transition = 'none';
@@ -327,45 +326,31 @@ function goStage(idx, smooth) {
   }
   sliderFill.style.width = p;
   sliderThumb.style.left = p;
-
   document.querySelectorAll('.sl-lbl').forEach((el, i) =>
     el.classList.toggle('active', i === idx));
   document.querySelectorAll('.scard').forEach((el, i) =>
     el.classList.toggle('active', i === idx));
 }
 
-function idxFromPointer(clientX) {
+function idxFromX(clientX) {
   const rect = sliderTrack.getBoundingClientRect();
   const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
   return Math.round(ratio * (STAGES - 1));
 }
 
-// Mouse
-sliderTrack.addEventListener('mousedown', e => {
-  dragging = true; goStage(idxFromPointer(e.clientX), true); e.preventDefault();
-});
-sliderThumb.addEventListener('mousedown', e => { dragging = true; e.preventDefault(); });
-document.addEventListener('mousemove', e => {
-  if (!dragging) return;
-  const idx = idxFromPointer(e.clientX);
-  if (idx !== current) goStage(idx, false);
-});
-document.addEventListener('mouseup', () => { dragging = false; });
-
-// Touch
-sliderTrack.addEventListener('touchstart', e => {
-  dragging = true; goStage(idxFromPointer(e.touches[0].clientX), true); e.preventDefault();
-}, { passive: false });
-sliderThumb.addEventListener('touchstart', e => {
-  dragging = true; e.preventDefault();
-}, { passive: false });
-document.addEventListener('touchmove', e => {
-  if (!dragging) return;
-  const idx = idxFromPointer(e.touches[0].clientX);
-  if (idx !== current) goStage(idx, false);
+// ── Pointer events (handles mouse + touch + stylus uniformly) ─────
+sliderTrack.addEventListener('pointerdown', e => {
+  sliderTrack.setPointerCapture(e.pointerId); // keep events even if pointer leaves track
+  goStage(idxFromX(e.clientX), true);
   e.preventDefault();
-}, { passive: false });
-document.addEventListener('touchend', () => { dragging = false; });
+});
+sliderTrack.addEventListener('pointermove', e => {
+  if (!sliderTrack.hasPointerCapture(e.pointerId)) return;
+  const idx = idxFromX(e.clientX);
+  if (idx !== current) goStage(idx, false);
+});
+sliderTrack.addEventListener('pointerup',     () => sliderTrack.releaseAllPointerCaptures?.());
+sliderTrack.addEventListener('pointercancel', () => sliderTrack.releaseAllPointerCaptures?.());
 
 goStage(0, false);
 
@@ -391,7 +376,7 @@ async function handleJoin() {
   status.style.display = 'none';
 
   try {
-    const res = await fetch(FORMSPREE_URL, {
+    const res = await fetch(GOOGLE_SCRIPT_URL, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
@@ -414,4 +399,9 @@ async function handleJoin() {
 
   } catch (err) {
     // Error — restore button so they can retry
-    btn.disabled =
+    btn.disabled = false;
+    btn.textContent = 'Join';
+    status.innerHTML = 'Something went wrong — please try again.';
+    status.className = 'email-status error';
+    status.style.display = 'block';
+    setTimeout(() => {
