@@ -46,7 +46,7 @@ header{
 
 /* ── HOOK ── */
 .hook{
-  padding:16px 0 12px;flex-shrink:0;text-align:center;
+  padding:14px 0 10px;flex-shrink:0;text-align:center;
 }
 .hook-tag{
   display:inline-block;
@@ -54,9 +54,18 @@ header{
   color:var(--gold);font-size:9px;font-weight:700;letter-spacing:2px;
   text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:10px;
 }
-.hook h1{font-size:clamp(17px,5vw,23px);font-weight:800;line-height:1.25;margin-bottom:6px}
-.hook h1 span{color:var(--gold)}
-.hook p{font-size:clamp(11px,3vw,13px);color:rgba(255,255,255,0.4);line-height:1.6;max-width:340px;margin:0 auto}
+/* Three-line hook */
+.hook-lines{margin-bottom:8px}
+.hook-line{font-size:clamp(13px,3.8vw,17px);font-weight:700;line-height:1.5}
+.hook-line:nth-child(1){color:rgba(255,255,255,0.45)}
+.hook-line:nth-child(2){color:rgba(255,255,255,0.65)}
+.hook-line:nth-child(3){color:var(--white)}
+.hook-line:nth-child(3) span{color:var(--gold)}
+/* Divider into slider prompt */
+.hook-prompt{
+  font-size:clamp(10px,2.8vw,12px);color:rgba(255,255,255,0.32);
+  margin-top:6px;letter-spacing:.3px;
+}
 
 /* ── SLIDER ── */
 .slider-section{flex-shrink:0;padding:14px 0 0}
@@ -175,7 +184,8 @@ footer{
 
 /* ── HEIGHT TWEAKS ── */
 @media(min-height:750px){
-  .hook{padding:20px 0 16px}
+  .hook{padding:18px 0 14px}
+  .hook-line{font-size:18px}
   .slider-section{padding:18px 0 0}
   .stage-card-wrap{margin-top:18px}
   .scard{padding:24px 22px 22px}
@@ -184,8 +194,8 @@ footer{
 @media(max-height:620px){
   header{padding:10px 0 8px}
   .hook{padding:8px 0 6px}
-  .hook h1{font-size:15px}
-  .hook p{font-size:10px}
+  .hook-line{font-size:12px}
+  .hook-prompt{font-size:10px;margin-top:4px}
   .slider-section{padding:8px 0 0}
   .stage-card-wrap{margin-top:8px}
   .scard{padding:14px 16px}
@@ -206,8 +216,12 @@ footer{
   <!-- HOOK -->
   <div class="hook">
     <div class="hook-tag">ASQ · Quality Management Division</div>
-    <h1>Where are you on the<br/><span>Quality 4.0 journey?</span></h1>
-    <p>A practitioner community exploring digital tools &amp; automation for quality excellence. Built by QMD volunteers — for you.</p>
+    <div class="hook-lines">
+      <div class="hook-line">The resources exist.</div>
+      <div class="hook-line">The curiosity is there.</div>
+      <div class="hook-line">The <span>community</span> is what's missing.</div>
+    </div>
+    <div class="hook-prompt">Where are you on the Quality 4.0 journey? →</div>
   </div>
 
   <!-- SLIDER -->
@@ -400,18 +414,4 @@ async function handleJoin() {
 
   } catch (err) {
     // Error — restore button so they can retry
-    btn.disabled = false;
-    btn.textContent = 'Join';
-    status.innerHTML = 'Something went wrong — please try again.';
-    status.className = 'email-status error';
-    status.style.display = 'block';
-    setTimeout(() => { status.style.display = 'none'; }, 4000);
-  }
-}
-
-document.getElementById('emailInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') handleJoin();
-});
-</script>
-</body>
-</html>
+    btn.disabled =
