@@ -10,12 +10,18 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  /* ASQ Official Brand Colors (Pantone 660 / 376 / 7409) */
-  --navy:#026CB6;--dark:#01457A;
-  --teal:#27B9A5;--gold:#FCB617;
-  --white:#fff;--muted:#8DC63F;
-  --asq-blue:#026CB6;--asq-green:#8DC63F;--asq-yellow:#FCB617;
+  /* ASQ Official Brand Colors */
+  --asq-blue:#026CB6;    /* Pantone 660 */
+  --asq-green:#8DC63F;   /* Pantone 376 */
+  --asq-yellow:#FCB617;  /* Pantone 7409 */
+  --asq-teal:#27B9A5;    /* Pantone 7465 */
   --charcoal:#414042;
+  /* Aliases used throughout */
+  --navy:var(--asq-blue);
+  --dark:#012D55;
+  --teal:var(--asq-teal);
+  --gold:var(--asq-yellow);
+  --white:#fff;
 }
 html,body{
   height:100%;
@@ -42,7 +48,7 @@ header{
   flex-shrink:0;
 }
 .h-chip{
-  background:var(--teal);color:#fff;
+  background:var(--asq-green);color:#fff;
   font-size:8px;font-weight:700;letter-spacing:2px;
   padding:3px 7px;border-radius:2px;text-transform:uppercase;flex-shrink:0;
 }
@@ -59,14 +65,12 @@ header{
   color:var(--asq-green);font-size:9px;font-weight:700;letter-spacing:2px;
   text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:10px;
 }
-/* Three-line hook */
 .hook-lines{margin-bottom:8px}
 .hook-line{font-size:clamp(13px,3.8vw,17px);font-weight:700;line-height:1.5}
 .hook-line:nth-child(1){color:rgba(255,255,255,0.45)}
 .hook-line:nth-child(2){color:rgba(255,255,255,0.65)}
 .hook-line:nth-child(3){color:var(--white)}
 .hook-line:nth-child(3) span{color:var(--asq-yellow)}
-/* Divider into slider prompt */
 .hook-prompt{
   font-size:clamp(10px,2.8vw,12px);color:rgba(255,255,255,0.32);
   margin-top:6px;letter-spacing:.3px;
@@ -76,12 +80,11 @@ header{
 .slider-section{flex-shrink:0;padding:14px 0 0}
 .sl-track-wrap{
   position:relative;
-  height:44px; /* large tap target — thumb is 24px, gives 10px above+below */
+  height:44px;
   margin:0 12px;cursor:pointer;
   touch-action:none;user-select:none;-webkit-user-select:none;
   display:flex;align-items:center;
 }
-/* Visual bar via pseudo-element — keeps fill/thumb math clean */
 .sl-track-wrap::before{
   content:'';position:absolute;left:0;right:0;
   height:6px;border-radius:3px;
@@ -93,16 +96,16 @@ header{
   height:6px;top:50%;transform:translateY(-50%);
   background:linear-gradient(90deg,var(--asq-green),var(--asq-blue));
   border-radius:3px;width:0%;
-  pointer-events:none; /* KEY: all touches go to track, not fill */
+  pointer-events:none;
   transition:width .28s cubic-bezier(.4,0,.2,1);
 }
 .sl-thumb{
   position:absolute;top:50%;
   width:24px;height:24px;border-radius:50%;
   background:var(--asq-blue);border:3px solid var(--dark);
-  box-shadow:0 0 0 3px rgba(2,108,182,0.35);
+  box-shadow:0 0 0 3px rgba(2,108,182,0.40);
   transform:translate(-50%,-50%);left:0%;
-  pointer-events:none; /* KEY: all touches go to track, not thumb */
+  pointer-events:none;
   transition:left .28s cubic-bezier(.4,0,.2,1);
 }
 .sl-labels{display:flex;justify-content:space-between;margin-top:10px}
@@ -146,7 +149,7 @@ header{
 .sc-unaware    .sc-name{color:var(--asq-green)}
 .sc-enthusiast .sc-name{color:var(--asq-blue)}
 .sc-practitioner .sc-name{color:var(--asq-yellow)}
-.sc-expert     .sc-name{color:var(--teal)}
+.sc-expert     .sc-name{color:var(--asq-teal)}
 .sc-desc{font-size:clamp(12px,3.2vw,14px);color:rgba(255,255,255,0.42);line-height:1.7;position:relative;z-index:1}
 .sc-resp{
   margin-top:12px;padding:10px 14px;
@@ -310,12 +313,8 @@ footer{
 </div>
 
 <script>
-// ── CONFIG — paste your Google Apps Script URL here ───────────────
-// See email_collector_script.js in your Quality 4.0 CMC folder for setup steps
-// Once deployed, paste the Web App URL below (replaces REPLACE_WITH_SCRIPT_URL)
+// ── CONFIG ────────────────────────────────────────────────────────
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztIx_3Fo0UVWmIObC4F8fk7_wmIeBfaTEB0MQ0q4iRWL9NV7fimXAUKveMlB6wUO1L/exec';
-
-// Stage labels for the submission payload
 const STAGE_LABELS = ['Unaware', 'Enthusiast', 'Practitioner', 'Expert'];
 
 // ── SLIDER ────────────────────────────────────────────────────────
@@ -351,67 +350,75 @@ function idxFromX(clientX) {
   return Math.round(ratio * (STAGES - 1));
 }
 
-// ── Pointer events (handles mouse + touch + stylus uniformly) ─────
-sliderTrack.addEventListener('pointerdown', e => {
-  sliderTrack.setPointerCapture(e.pointerId); // keep events even if pointer leaves track
+// Pointer events — handles mouse + touch + stylus uniformly
+sliderTrack.addEventListener('pointerdown', function(e) {
+  sliderTrack.setPointerCapture(e.pointerId);
   goStage(idxFromX(e.clientX), true);
   e.preventDefault();
 });
-sliderTrack.addEventListener('pointermove', e => {
+sliderTrack.addEventListener('pointermove', function(e) {
   if (!sliderTrack.hasPointerCapture(e.pointerId)) return;
-  const idx = idxFromX(e.clientX);
+  var idx = idxFromX(e.clientX);
   if (idx !== current) goStage(idx, false);
 });
-sliderTrack.addEventListener('pointerup',     () => sliderTrack.releaseAllPointerCaptures?.());
-sliderTrack.addEventListener('pointercancel', () => sliderTrack.releaseAllPointerCaptures?.());
+sliderTrack.addEventListener('pointerup', function(e) {
+  sliderTrack.releasePointerCapture(e.pointerId);
+});
+sliderTrack.addEventListener('pointercancel', function(e) {
+  sliderTrack.releasePointerCapture(e.pointerId);
+});
 
 goStage(0, false);
 
 // ── EMAIL SUBMIT ─────────────────────────────────────────────────
 async function handleJoin() {
-  const input  = document.getElementById('emailInput');
-  const btn    = document.getElementById('joinBtn');
-  const status = document.getElementById('emailStatus');
-  const email  = input.value.trim();
+  var input  = document.getElementById('emailInput');
+  var btn    = document.getElementById('joinBtn');
+  var status = document.getElementById('emailStatus');
+  var email  = input.value.trim();
 
-  // Basic validation
   if (!email || !email.includes('@') || !email.includes('.')) {
     input.style.borderColor = '#e85050';
-    setTimeout(() => input.style.borderColor = '', 1400);
+    setTimeout(function(){ input.style.borderColor = ''; }, 1400);
     input.focus();
     return;
   }
 
-  // Loading state
   btn.disabled = true;
   btn.textContent = '...';
   status.className = 'email-status';
   status.style.display = 'none';
 
   try {
-    // GET with URL params — most reliable pattern for Google Apps Script (no redirect/CORS issues)
-    const url = new URL(GOOGLE_SCRIPT_URL);
+    var url = new URL(GOOGLE_SCRIPT_URL);
     url.searchParams.set('email', email);
     url.searchParams.set('stage', STAGE_LABELS[current]);
     await fetch(url.toString(), { mode: 'no-cors' });
 
-    // Replace row with success message
     document.getElementById('emailRow').innerHTML =
-      '<p style="font-size:13px;color:rgba(78,203,158,0.9);text-align:center;padding:4px 0">✅ <strong>You\'re on the list.</strong> We\'ll be in touch soon.</p>';
+      '<p style="font-size:13px;color:rgba(141,198,63,0.95);text-align:center;padding:4px 0">' +
+      '&#x2705; <strong>You\'re on the list.</strong> We\'ll be in touch soon.</p>';
 
-  } catch (err) {
+  } catch(err) {
     btn.disabled = false;
     btn.textContent = 'Join';
     status.innerHTML = 'Something went wrong — please try again.';
     status.className = 'email-status error';
     status.style.display = 'block';
-    setTimeout(() => { status.style.display = 'none'; }, 4000);
+    setTimeout(function(){ status.style.display = 'none'; }, 4000);
   }
 }
 
-document.getElementById('emailInput').addEventListener('keydown', e => {
+document.getElementById('emailInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') handleJoin();
 });
 
-// Scroll email section into view when keyboard opens on mobile
-docu
+document.getElementById('emailInput').addEventListener('focus', function() {
+  setTimeout(function() {
+    document.querySelector('.email-section').scrollIntoView({ block: 'nearest' });
+  }, 350);
+});
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                          
