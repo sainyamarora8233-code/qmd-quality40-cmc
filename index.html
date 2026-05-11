@@ -3,16 +3,19 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<meta name="theme-color" content="#0D2B45"/>
+<meta name="theme-color" content="#026CB6"/>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
 <meta http-equiv="Pragma" content="no-cache"/>
 <title>Quality 4.0 CMC — QMD | ASQ</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0D2B45;--dark:#091E2E;
-  --teal:#0B6E7E;--gold:#E8A117;
-  --white:#fff;--muted:#5A7A90;
+  /* ASQ Official Brand Colors (Pantone 660 / 376 / 7409) */
+  --navy:#026CB6;--dark:#01457A;
+  --teal:#27B9A5;--gold:#FCB617;
+  --white:#fff;--muted:#8DC63F;
+  --asq-blue:#026CB6;--asq-green:#8DC63F;--asq-yellow:#FCB617;
+  --charcoal:#414042;
 }
 html,body{
   height:100%;
@@ -44,7 +47,7 @@ header{
   padding:3px 7px;border-radius:2px;text-transform:uppercase;flex-shrink:0;
 }
 .h-title{font-size:13px;font-weight:700;color:rgba(255,255,255,0.8)}
-.h-title span{color:var(--gold)}
+.h-title span{color:var(--asq-green)}
 
 /* ── HOOK ── */
 .hook{
@@ -52,8 +55,8 @@ header{
 }
 .hook-tag{
   display:inline-block;
-  background:rgba(232,161,23,0.12);border:1px solid rgba(232,161,23,0.25);
-  color:var(--gold);font-size:9px;font-weight:700;letter-spacing:2px;
+  background:rgba(141,198,63,0.12);border:1px solid rgba(141,198,63,0.30);
+  color:var(--asq-green);font-size:9px;font-weight:700;letter-spacing:2px;
   text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:10px;
 }
 /* Three-line hook */
@@ -62,7 +65,7 @@ header{
 .hook-line:nth-child(1){color:rgba(255,255,255,0.45)}
 .hook-line:nth-child(2){color:rgba(255,255,255,0.65)}
 .hook-line:nth-child(3){color:var(--white)}
-.hook-line:nth-child(3) span{color:var(--gold)}
+.hook-line:nth-child(3) span{color:var(--asq-yellow)}
 /* Divider into slider prompt */
 .hook-prompt{
   font-size:clamp(10px,2.8vw,12px);color:rgba(255,255,255,0.32);
@@ -88,7 +91,7 @@ header{
 .sl-fill{
   position:absolute;left:0;
   height:6px;top:50%;transform:translateY(-50%);
-  background:linear-gradient(90deg,var(--teal),var(--gold));
+  background:linear-gradient(90deg,var(--asq-green),var(--asq-blue));
   border-radius:3px;width:0%;
   pointer-events:none; /* KEY: all touches go to track, not fill */
   transition:width .28s cubic-bezier(.4,0,.2,1);
@@ -96,8 +99,8 @@ header{
 .sl-thumb{
   position:absolute;top:50%;
   width:24px;height:24px;border-radius:50%;
-  background:var(--gold);border:3px solid var(--dark);
-  box-shadow:0 0 0 3px rgba(232,161,23,0.28);
+  background:var(--asq-blue);border:3px solid var(--dark);
+  box-shadow:0 0 0 3px rgba(2,108,182,0.35);
   transform:translate(-50%,-50%);left:0%;
   pointer-events:none; /* KEY: all touches go to track, not thumb */
   transition:left .28s cubic-bezier(.4,0,.2,1);
@@ -111,7 +114,7 @@ header{
   transition:color .2s,background .2s;touch-action:manipulation;
   user-select:none;-webkit-user-select:none;
 }
-.sl-lbl.active{color:var(--gold);background:rgba(232,161,23,0.08)}
+.sl-lbl.active{color:var(--asq-yellow);background:rgba(252,182,23,0.10)}
 
 /* ── STAGE CARD ── */
 .stage-card-wrap{flex:1;min-height:0;margin-top:14px;position:relative}
@@ -128,22 +131,22 @@ header{
 .scard.active{display:flex}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-.sc-unaware   {border-color:rgba(90,122,144,0.25)}
-.sc-unaware::before{background:radial-gradient(ellipse 80% 60% at 100% 100%,rgba(90,122,144,0.12),transparent)}
-.sc-enthusiast{border-color:rgba(11,110,126,0.3)}
-.sc-enthusiast::before{background:radial-gradient(ellipse 80% 60% at 100% 100%,rgba(11,110,126,0.15),transparent)}
-.sc-practitioner{border-color:rgba(232,161,23,0.28)}
-.sc-practitioner::before{background:radial-gradient(ellipse 80% 60% at 100% 100%,rgba(232,161,23,0.12),transparent)}
-.sc-expert    {border-color:rgba(78,203,158,0.25)}
-.sc-expert::before{background:radial-gradient(ellipse 80% 60% at 100% 100%,rgba(78,203,158,0.12),transparent)}
+.sc-unaware   {border-color:rgba(141,198,63,0.20)}
+.sc-unaware::before{background:radial-gradient(ellipse 80% 60% at 100% 100%,rgba(141,198,63,0.08),transparent)}
+.sc-enthusiast{border-color:rgba(2,108,182,0.30)}
+.sc-enthusiast::before{background:radial-gradient(ellipse 80% 60% at 100% 100%,rgba(2,108,182,0.12),transparent)}
+.sc-practitioner{border-color:rgba(252,182,23,0.28)}
+.sc-practitioner::before{background:radial-gradient(ellipse 80% 60% at 100% 100%,rgba(252,182,23,0.10),transparent)}
+.sc-expert    {border-color:rgba(39,185,165,0.25)}
+.sc-expert::before{background:radial-gradient(ellipse 80% 60% at 100% 100%,rgba(39,185,165,0.10),transparent)}
 
 .sc-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;z-index:1}
 .sc-icon{font-size:clamp(26px,7vw,34px);line-height:1;flex-shrink:0}
 .sc-name{font-size:clamp(18px,5vw,24px);font-weight:800;line-height:1.1}
-.sc-unaware    .sc-name{color:var(--muted)}
-.sc-enthusiast .sc-name{color:#5dd6e8}
-.sc-practitioner .sc-name{color:var(--gold)}
-.sc-expert     .sc-name{color:#4ecb9e}
+.sc-unaware    .sc-name{color:var(--asq-green)}
+.sc-enthusiast .sc-name{color:var(--asq-blue)}
+.sc-practitioner .sc-name{color:var(--asq-yellow)}
+.sc-expert     .sc-name{color:var(--teal)}
 .sc-desc{font-size:clamp(12px,3.2vw,14px);color:rgba(255,255,255,0.42);line-height:1.7;position:relative;z-index:1}
 .sc-resp{
   margin-top:12px;padding:10px 14px;
@@ -151,7 +154,7 @@ header{
   font-size:clamp(11.5px,3vw,13px);color:rgba(255,255,255,0.55);
   line-height:1.6;position:relative;z-index:1;
 }
-.sc-resp strong{color:var(--gold)}
+.sc-resp strong{color:var(--asq-yellow)}
 
 /* ── EMAIL ── */
 .email-section{
@@ -160,7 +163,7 @@ header{
 }
 .email-label{
   font-size:10px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--teal);text-align:center;margin-bottom:8px;
+  text-transform:uppercase;color:var(--asq-green);text-align:center;margin-bottom:8px;
 }
 .email-row{display:flex;gap:8px}
 .email-row input{
@@ -170,9 +173,9 @@ header{
   outline:none;-webkit-appearance:none;transition:border-color .2s;min-width:0;
 }
 .email-row input::placeholder{color:rgba(255,255,255,0.28);font-size:13px}
-.email-row input:focus{border-color:var(--teal)}
+.email-row input:focus{border-color:var(--asq-blue)}
 .email-row button{
-  background:var(--gold);color:var(--navy);
+  background:var(--asq-blue);color:#fff;
   font-size:13px;font-weight:800;padding:11px 20px;
   border-radius:6px;border:none;cursor:pointer;
   white-space:nowrap;touch-action:manipulation;flex-shrink:0;
@@ -184,7 +187,7 @@ header{
   font-size:12px;padding-top:8px;
   animation:fadeUp .3s ease;
 }
-.email-status.success{color:rgba(78,203,158,0.85)}
+.email-status.success{color:rgba(141,198,63,0.90)}
 .email-status.error  {color:rgba(232,100,80,0.85)}
 .email-status strong {color:inherit}
 
@@ -411,11 +414,4 @@ document.getElementById('emailInput').addEventListener('keydown', e => {
 });
 
 // Scroll email section into view when keyboard opens on mobile
-document.getElementById('emailInput').addEventListener('focus', () => {
-  setTimeout(() => {
-    document.querySelector('.email-section').scrollIntoView({ block: 'nearest' });
-  }, 350);
-});
-</script>
-</body>
-</html>
+docu
