@@ -10,17 +10,11 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  /* ASQ Official Brand Colors */
-  --asq-blue:#026CB6;    /* Pantone 660 */
-  --asq-green:#8DC63F;   /* Pantone 376 */
-  --asq-yellow:#FCB617;  /* Pantone 7409 */
-  --asq-teal:#27B9A5;    /* Pantone 7465 */
-  --charcoal:#414042;
-  /* Aliases used throughout */
-  --navy:var(--asq-blue);
+  --asq-blue:#026CB6;
+  --asq-green:#8DC63F;
+  --asq-yellow:#FCB617;
+  --asq-teal:#27B9A5;
   --dark:#012D55;
-  --teal:var(--asq-teal);
-  --gold:var(--asq-yellow);
   --white:#fff;
 }
 html,body{
@@ -32,7 +26,6 @@ html,body{
   -webkit-text-size-adjust:100%;
 }
 
-/* ── FULL-VIEWPORT COLUMN ── */
 .page{
   display:flex;flex-direction:column;
   height:100svh;
@@ -79,8 +72,7 @@ header{
 /* ── SLIDER ── */
 .slider-section{flex-shrink:0;padding:14px 0 0}
 .sl-track-wrap{
-  position:relative;
-  height:44px;
+  position:relative;height:44px;
   margin:0 12px;cursor:pointer;
   touch-action:none;user-select:none;-webkit-user-select:none;
   display:flex;align-items:center;
@@ -147,7 +139,7 @@ header{
 .sc-icon{font-size:clamp(26px,7vw,34px);line-height:1;flex-shrink:0}
 .sc-name{font-size:clamp(18px,5vw,24px);font-weight:800;line-height:1.1}
 .sc-unaware    .sc-name{color:var(--asq-green)}
-.sc-enthusiast .sc-name{color:var(--asq-blue)}
+.sc-enthusiast .sc-name{color:#5AACFF}
 .sc-practitioner .sc-name{color:var(--asq-yellow)}
 .sc-expert     .sc-name{color:var(--asq-teal)}
 .sc-desc{font-size:clamp(12px,3.2vw,14px);color:rgba(255,255,255,0.42);line-height:1.7;position:relative;z-index:1}
@@ -159,40 +151,35 @@ header{
 }
 .sc-resp strong{color:var(--asq-yellow)}
 
-/* ── EMAIL ── */
-.email-section{
+/* ── SUBMIT SECTION ── */
+.submit-section{
   flex-shrink:0;padding:12px 0 8px;
   border-top:1px solid rgba(255,255,255,0.07);
 }
-.email-label{
+.submit-label{
   font-size:10px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--asq-green);text-align:center;margin-bottom:8px;
+  text-transform:uppercase;color:var(--asq-green);
+  text-align:center;margin-bottom:10px;
 }
-.email-row{display:flex;gap:8px}
-.email-row input{
-  flex:1;background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,255,255,0.13);border-radius:6px;
-  color:#fff;font-size:15px;padding:11px 14px;
-  outline:none;-webkit-appearance:none;transition:border-color .2s;min-width:0;
-}
-.email-row input::placeholder{color:rgba(255,255,255,0.28);font-size:13px}
-.email-row input:focus{border-color:var(--asq-blue)}
-.email-row button{
+.submit-btn{
+  display:block;width:100%;
   background:var(--asq-blue);color:#fff;
-  font-size:13px;font-weight:800;padding:11px 20px;
-  border-radius:6px;border:none;cursor:pointer;
-  white-space:nowrap;touch-action:manipulation;flex-shrink:0;
-  transition:opacity .2s;
+  font-size:14px;font-weight:800;
+  padding:13px 20px;border-radius:8px;
+  border:none;cursor:pointer;
+  touch-action:manipulation;
+  transition:opacity .2s, transform .1s;
+  letter-spacing:.3px;
 }
-.email-row button:disabled{opacity:.6;cursor:default}
-.email-status{
+.submit-btn:active{transform:scale(0.98)}
+.submit-btn:disabled{opacity:.5;cursor:default}
+.submit-status{
   display:none;text-align:center;
-  font-size:12px;padding-top:8px;
+  font-size:12px;padding-top:10px;
   animation:fadeUp .3s ease;
 }
-.email-status.success{color:rgba(141,198,63,0.90)}
-.email-status.error  {color:rgba(232,100,80,0.85)}
-.email-status strong {color:inherit}
+.submit-status.success{color:rgba(141,198,63,0.95)}
+.submit-status.error  {color:rgba(232,100,80,0.85)}
 
 /* ── FOOTER ── */
 footer{
@@ -208,7 +195,7 @@ footer{
   .slider-section{padding:18px 0 0}
   .stage-card-wrap{margin-top:18px}
   .scard{padding:24px 22px 22px}
-  .email-section{padding:16px 0 10px}
+  .submit-section{padding:16px 0 10px}
 }
 @media(max-height:620px){
   header{padding:10px 0 8px}
@@ -219,7 +206,7 @@ footer{
   .stage-card-wrap{margin-top:8px}
   .scard{padding:14px 16px}
   .sc-resp{margin-top:8px;padding:8px 12px}
-  .email-section{padding:8px 0 6px}
+  .submit-section{padding:8px 0 6px}
 }
 </style>
 </head>
@@ -274,7 +261,7 @@ footer{
         <div class="sc-name">Enthusiast</div>
       </div>
       <div class="sc-desc">Aware and genuinely interested, but not sure where to start or who to learn with.</div>
-      <div class="sc-resp"><strong>You're our core audience.</strong> We're building the first steps and community together — add your email and be part of it from day one.</div>
+      <div class="sc-resp"><strong>You're our core audience.</strong> We're building the first steps together — add your stage and be counted from day one.</div>
     </div>
 
     <div class="scard sc-practitioner" id="card-2">
@@ -296,38 +283,37 @@ footer{
     </div>
   </div>
 
-  <!-- EMAIL -->
-  <div class="email-section">
-    <div class="email-label">Stay Connected</div>
-    <div class="email-row" id="emailRow">
-      <input type="email" id="emailInput" placeholder="Your email address"
-             autocomplete="email" inputmode="email"/>
-      <button id="joinBtn" onclick="handleJoin()">Join</button>
-    </div>
-    <div class="email-status" id="emailStatus"></div>
+  <!-- SUBMIT (anonymous — stage only, no personal data) -->
+  <div class="submit-section">
+    <div class="submit-label">Mark your spot on the journey</div>
+    <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+      Submit My Stage →
+    </button>
+    <div class="submit-status" id="submitStatus"></div>
   </div>
 
   <!-- FOOTER -->
-  <footer>ASQ Quality Management Division · CMC Initiative</footer>
+  <footer>ASQ Quality Management Division · CMC Initiative · No personal data collected</footer>
 
 </div>
 
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztIx_3Fo0UVWmIObC4F8fk7_wmIeBfaTEB0MQ0q4iRWL9NV7fimXAUKveMlB6wUO1L/exec';
+// Anonymous stage-only endpoint — no email, no PII
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztIx_3Fo0UVWmIObC4F8fk7_wmIeBfaTEB0MQ0q4iRWL9NV7fimKveMlB6wUO1L/exec';
 const STAGE_LABELS = ['Unaware', 'Enthusiast', 'Practitioner', 'Expert'];
 
 // ── SLIDER ────────────────────────────────────────────────────────
-const sliderTrack = document.getElementById('sliderTrack');
-const sliderFill  = document.getElementById('sliderFill');
-const sliderThumb = document.getElementById('sliderThumb');
-const STAGES = 4;
-let current = 0;
+var sliderTrack = document.getElementById('sliderTrack');
+var sliderFill  = document.getElementById('sliderFill');
+var sliderThumb = document.getElementById('sliderThumb');
+var STAGES = 4;
+var current = 0;
 
 function goStage(idx, smooth) {
   idx = Math.max(0, Math.min(STAGES - 1, Math.round(idx)));
   current = idx;
-  const p = (idx / (STAGES - 1) * 100) + '%';
+  var p = (idx / (STAGES - 1) * 100) + '%';
   if (smooth === false) {
     sliderFill.style.transition  = 'none';
     sliderThumb.style.transition = 'none';
@@ -338,19 +324,27 @@ function goStage(idx, smooth) {
   }
   sliderFill.style.width = p;
   sliderThumb.style.left = p;
-  document.querySelectorAll('.sl-lbl').forEach((el, i) =>
-    el.classList.toggle('active', i === idx));
-  document.querySelectorAll('.scard').forEach((el, i) =>
-    el.classList.toggle('active', i === idx));
+  document.querySelectorAll('.sl-lbl').forEach(function(el, i) {
+    el.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.scard').forEach(function(el, i) {
+    el.classList.toggle('active', i === idx);
+  });
+  // Re-enable submit button if it was in done state
+  var btn = document.getElementById('submitBtn');
+  if (btn && btn.dataset.done !== 'true') {
+    btn.disabled = false;
+    btn.textContent = 'Submit My Stage →';
+  }
 }
 
 function idxFromX(clientX) {
-  const rect = sliderTrack.getBoundingClientRect();
-  const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  var rect = sliderTrack.getBoundingClientRect();
+  var ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
   return Math.round(ratio * (STAGES - 1));
 }
 
-// Pointer events — handles mouse + touch + stylus uniformly
+// Pointer events — handles mouse + touch + stylus
 sliderTrack.addEventListener('pointerdown', function(e) {
   sliderTrack.setPointerCapture(e.pointerId);
   goStage(idxFromX(e.clientX), true);
@@ -370,55 +364,39 @@ sliderTrack.addEventListener('pointercancel', function(e) {
 
 goStage(0, false);
 
-// ── EMAIL SUBMIT ─────────────────────────────────────────────────
-async function handleJoin() {
-  var input  = document.getElementById('emailInput');
-  var btn    = document.getElementById('joinBtn');
-  var status = document.getElementById('emailStatus');
-  var email  = input.value.trim();
-
-  if (!email || !email.includes('@') || !email.includes('.')) {
-    input.style.borderColor = '#e85050';
-    setTimeout(function(){ input.style.borderColor = ''; }, 1400);
-    input.focus();
-    return;
-  }
+// ── ANONYMOUS STAGE SUBMIT ────────────────────────────────────────
+// Sends only: stage label. No email. No name. No PII.
+// Google Sheet logs: serial#, timestamp, stage.
+async function handleSubmit() {
+  var btn    = document.getElementById('submitBtn');
+  var status = document.getElementById('submitStatus');
 
   btn.disabled = true;
   btn.textContent = '...';
-  status.className = 'email-status';
+  status.className = 'submit-status';
   status.style.display = 'none';
 
   try {
     var url = new URL(GOOGLE_SCRIPT_URL);
-    url.searchParams.set('email', email);
     url.searchParams.set('stage', STAGE_LABELS[current]);
     await fetch(url.toString(), { mode: 'no-cors' });
 
-    document.getElementById('emailRow').innerHTML =
-      '<p style="font-size:13px;color:rgba(141,198,63,0.95);text-align:center;padding:4px 0">' +
-      '&#x2705; <strong>You\'re on the list.</strong> We\'ll be in touch soon.</p>';
+    // Success state
+    btn.textContent = '✅ Recorded — thanks!';
+    btn.dataset.done = 'true';
+    status.innerHTML = 'Your stage has been anonymously logged. No personal data collected.';
+    status.className = 'submit-status success';
+    status.style.display = 'block';
 
   } catch(err) {
     btn.disabled = false;
-    btn.textContent = 'Join';
+    btn.textContent = 'Submit My Stage →';
     status.innerHTML = 'Something went wrong — please try again.';
-    status.className = 'email-status error';
+    status.className = 'submit-status error';
     status.style.display = 'block';
     setTimeout(function(){ status.style.display = 'none'; }, 4000);
   }
 }
-
-document.getElementById('emailInput').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') handleJoin();
-});
-
-document.getElementById('emailInput').addEventListener('focus', function() {
-  setTimeout(function() {
-    document.querySelector('.email-section').scrollIntoView({ block: 'nearest' });
-  }, 350);
-});
 </script>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                          
